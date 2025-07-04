@@ -36,6 +36,21 @@ thread2.join()
             counter += 1
   ``` 
   * when the function is completed, it releases the lock, for the other usage
-* extra usage of threads:[See thread7.py](./thread7.py) 
+* ThreadPoolExecutor= is an executor manage all threads from the resource pool :
+* with submit function, the executor assigns the data for the function according to it's requirements.
+  * it schedules each task.
+* instead of the join() function, the executor creates a pool of threads(tasks) according to the provided data.
+  * each has a function of result(), makes to wait for the other to complete like join()
+* the workers are the number of threads that can run simultaneously; 
+once one worker finished the task, it takes the next task from the pool
+```
+with ThreadPoolExecutor(max_workers=2) as executor:
+    futures = [executor.submit(print_sequence, name, count) for name, count in tasks]
+
+    # Wait for all to complete
+    for future in futures:
+        future.result()
+```
+* extra usage of threads:[See thread7.py] (./thread7.py) 
   * each thread receives the fetch_content function and the url of the site
   * from each site, get its title, description and first 5 links and prints to the console the results
