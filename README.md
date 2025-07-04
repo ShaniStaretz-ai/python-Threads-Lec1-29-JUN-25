@@ -7,7 +7,7 @@ Threads
     ```
      threading.current_thread().name)
     ```
-* to create new thread, it needs the function/proccess to run in it:
+* to create a new thread, it needs the function/ process to run in it:
     ```
     thread1 = threading.Thread(target=print_numbers)
     ```
@@ -35,9 +35,9 @@ thread2.join()
             print(threading.current_thread().name, counter)
             counter += 1
   ``` 
-  * when the function is completed, it releases the lock, for the other usage
+  * when the function is completed, it releases the lock for the other usage
 * ThreadPoolExecutor= is an executor manage all threads from the resource pool :
-* with **submit** function, the executor assigns the data (each parameter) for the function according to it's requirements.
+* with **submit** function, the executor assigns the data (each parameter) for the function according to its requirements.
   * it schedules each task.
   * it manually submits one task at a time.
   * it returns a Future object immediately.
