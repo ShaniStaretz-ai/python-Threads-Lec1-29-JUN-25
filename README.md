@@ -37,12 +37,25 @@ thread2.join()
   ``` 
   * when the function is completed, it releases the lock, for the other usage
 * ThreadPoolExecutor= is an executor manage all threads from the resource pool :
-* with submit function, the executor assigns the data for the function according to it's requirements.
+* with **submit** function, the executor assigns the data (each parameter) for the function according to it's requirements.
   * it schedules each task.
+  * it manually submits one task at a time.
+  * it returns a Future object immediately.
 * instead of the join() function, the executor creates a pool of threads(tasks) according to the provided data.
   * each has a function of result(), makes to wait for the other to complete like join()
 * the workers are the number of threads that can run simultaneously; 
 once one worker finished the task, it takes the next task from the pool
+* the map function sends lists of data to the tasks
+* see summery of comparing executor's map and submit functions:
+| Feature               | `map`                             | `submit`                                 |
+| --------------------- | --------------------------------- | ---------------------------------------- |
+| API style             | Functional (`map(func, data)`)    | Imperative (`submit(func, *args)`)       |
+| Returns               | Iterator of results               | List of `Future` objects                 |
+| Preserves input order | ✅ Yes                             | ❌ Not guaranteed unless managed manually |
+| Exception handling    | Raises first exception on `map()` | Per-future via `future.exception()`      |
+| Fine-grained control  | ❌ Limited                         | ✅ Full control                           |
+| Best for              | Simple batch tasks                | Custom args, monitoring, flexibility     |
+
 ```
 with ThreadPoolExecutor(max_workers=2) as executor:
     futures = [executor.submit(print_sequence, name, count) for name, count in tasks]
